@@ -1,0 +1,176 @@
+{
+    "Zielony Segregator": {
+        "pytanie": "Na kiedy?",
+        "interactionType": "button",
+        "przyciski": [
+            "Dzisiaj",
+            "(() => { const d = new Date(); d.setDate(d.getDate() + 1); return d.toLocaleDateString('pl-PL', { weekday: 'long', day: 'numeric', month: 'long' }); })()",
+            "(() => { const d = new Date(); d.setDate(d.getDate() + 2); return d.toLocaleDateString('pl-PL', { weekday: 'long', day: 'numeric', month: 'long' }); })()",
+            "(() => { const d = new Date(); d.setDate(d.getDate() + 3); return d.toLocaleDateString('pl-PL', { weekday: 'long', day: 'numeric', month: 'long' }); })()",
+            {
+                "przycisk": "Inna",
+                "pytanie": "Jaka?",
+                "interactionType": "textField"
+            }
+        ],
+        "kolejnePytania": [
+            {
+                "pytanie": "Nazwisko zamawiającego",
+                "interactionType": "textField+button",
+                "przyciski": "Pomiń",
+                "kolejnePytania": [
+                    {
+                        "pytanie": "Numer telefonu",
+                        "interactionType": "textField+button",
+                        "przyciski": "Pomiń",
+                        "kolejnePytania": [
+                            {
+                                "pytanie": "Rodzaj zamówienia",
+                                "interactionType": "button",
+                                "przyciski": [
+                                    "Bukiet",
+                                    "Układana",
+                                    "Pojedyncze kwiaty",
+                                    {
+                                        "przycisk": "Inne",
+                                        "pytanie": "Co?",
+                                        "interactionType": "textField"
+                                    }
+                                ],
+                                "kolejnePytania": [
+                                    {
+                                        "pytanie": "Żywość kwiatów",
+                                        "interactionType": "button",
+                                        "przyciski": [
+                                            "Żywe",
+                                            "Sztuczne"
+                                        ],
+                                        "kolejnePytania": [
+                                            {
+                                                "pytanie": "Rodzaj kwiatów",
+                                                "interactionType": "textField+button",
+                                                "przyciski": [
+                                                    {
+                                                        "przycisk": "Róże",
+                                                        "pytanie": "Kolor?",
+                                                        "interactionType": "textField+button",
+                                                        "przyciski": [
+                                                            "Czerwone",
+                                                            "Ekri",
+                                                            "Herbaciane",
+                                                            "Różowe",
+                                                            "Pomiń"
+                                                        ]
+                                                    },
+                                                    {
+                                                        "przycisk": "Goździki",
+                                                        "pytanie": "Kolor?",
+                                                        "interactionType": "textField+button",
+                                                        "przyciski": [
+                                                            "Jasny",
+                                                            "Ciemny",
+                                                            "Pomiń"
+                                                        ]
+                                                    },
+                                                    {
+                                                        "przycisk": "Gerber",
+                                                        "pytanie": "Kolor?",
+                                                        "interactionType": "textField+button",
+                                                        "przyciski": [
+                                                            "Jasny",
+                                                            "Ciemny",
+                                                            "Pomiń"
+                                                        ]
+                                                    },
+                                                    {
+                                                        "przycisk": "Anturium",
+                                                        "pytanie": "Kolor?",
+                                                        "interactionType": "textField+button",
+                                                        "przyciski": [
+                                                            "Białe",
+                                                            "Czerwone",
+                                                            "Zielone",
+                                                            "Pomiń"
+                                                        ]
+                                                    },
+                                                    "Pomiń"
+                                                ],
+                                                "kolejnePytania": [
+                                                    {
+                                                        "pytanie": "Kolorystyka kompozycji",
+                                                        "interactionType": "textField+button",
+                                                        "przyciski": [
+                                                            "Pomiń",
+                                                            "Biała",
+                                                            "Różowa",
+                                                            "Czerwona"
+                                                        ],
+                                                        "kolejnePytania": [
+                                                            {
+                                                                "pytanie": "Dodaj treść szarfy",
+                                                                "interactionType": "repetableTextField+button",
+                                                                "przyciski": [
+                                                                    "Pomiń"
+                                                                ],
+                                                                "kolejnePytania": [
+                                                                    {
+                                                                        "pytanie": "Kwota",
+                                                                        "interactionType": "textField",
+                                                                        "kolejnePytania": [
+                                                                            {
+                                                                                "pytanie": "Czy zapłacone?",
+                                                                                "interactionType": "button",
+                                                                                "przyciski": [
+                                                                                    "Tak",
+                                                                                    "Nie",
+                                                                                    "Faktura",
+                                                                                    "W pogrzebówce",
+                                                                                    {
+                                                                                        "przycisk": "Inne",
+                                                                                        "pytanie": "Jakie?",
+                                                                                        "interactionType": "textField"
+                                                                                    }
+                                                                                ],
+                                                                                "kolejnePytania": [
+                                                                                    {
+                                                                                        "pytanie": "Czy na fakturę?",
+                                                                                        "interactionType": "button",
+                                                                                        "przyciski": [
+                                                                                            {
+                                                                                                "przycisk": "Tak",
+                                                                                                "pytanie": "Podaj numer faktury",
+                                                                                                "interactionType": "textField"
+                                                                                            },
+                                                                                            "Nie"
+                                                                                        ],
+                                                                                        "kolejnePytania": [
+                                                                                            {
+                                                                                                "pytanie": "Komentarz",
+                                                                                                "interactionType": "textField+button",
+                                                                                                "przyciski": [
+                                                                                                    "Pomiń"
+                                                                                                ]
+                                                                                            }
+                                                                                        ]
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

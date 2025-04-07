@@ -1,0 +1,486 @@
+
+Gdzie zapisać zamówienie?
+- Niebieski Segregator
+    - **Na kiedy?**
+        - Dzień tygodnia (4 dni do przodu)
+        - Inna
+            - Jaka? (pole tekstowe)
+    - **Nazwisko zamawiającego**
+        - Pole tekstowe
+        - Przyciski:
+            - Pomij
+    - **Numer telefonu**
+        - Pole tekstowe
+        - Przyciski:
+            - Pomij
+    - **Rodzaj zamówienia**
+        - Wieniec
+        - Wiązanka
+        - Serce
+        - Inne
+            - Co? (pole tekstowe)
+    - **Żywość kwiatów**
+        - Żywe
+        - Sztuczne
+    - **Rodzaj kwiatów**
+        - Pole tekstowe
+        - Przyciski z podpowiedziami:
+            - Róże
+                - Czerwona
+                - Ekri
+                - Herbaciana
+                - Różowa
+            - Goździki
+                - Jasny
+                - Ciemny
+            - Gerber
+                - Jasny
+                - Ciemny
+            - Anturium
+                - Białe
+                - Czerwone
+                - Zielone
+            - Lilia 
+                - Białe
+                - Różowe
+                - Żółte
+    - **Kolor kwiatów**
+        - Pole tekstowe
+        - Przyciski z podpowiedziami:
+            - Bordo
+            - Ekri
+            - Herbaciany
+            - Różowy
+            - Fioletowy
+    - **Kwota**
+        - Pole tekstowe
+    - **Czy zapłacone?**
+        - Tak
+        - Nie
+        - Faktura
+        - W pogrzebówce
+        - Inne
+            - Jakie? (pole tekstowe)
+    - **Czy na fakturę?**
+        - Tak 
+            - Podaj numer faktury
+        - Nie
+    - **Treść szarfy**
+        - Pole tekstowe
+        - Przyciski:
+            - Pomij
+            - Kolejna szarfa (przenosi do Treść szarfy)
+    - **Komentarz**
+        - Pole tekstowe
+        - Przyciski:
+            - Pomij
+- Zielony Segregator
+    - **Na kiedy?**
+        - Dzień tygodnia (4 dni do przodu) + godzina
+        - Inna
+            - Jaka? (pole tekstowe)
+    - **Nazwisko zamawiającego**
+        - Pole tekstowe
+        - Przyciski:
+            - Pomij
+    - **Numer telefonu**
+        - Pole tekstowe
+        - Przyciski:
+            - Pomij
+    - **Rodzaj zamówienia**
+        - Bukiet
+        - Układana
+        - Pojedyncze kwiaty
+        - Inne
+            - Co? (pole tekstowe)
+    - **Żywość kwiatów**
+        - Żywe
+        - Sztuczne
+    - **Rodzaj kwiatów**
+        - Pole tekstowe
+        - Przyciski z podpowiedziami:
+                - Róże
+                - Czerwona
+                - Ekri
+                - Herbaciana
+                - Różowa
+            - Goździki
+                - Jasny
+                - Ciemny
+            - Gerber
+                - Jasny
+                - Ciemny
+            - Anturium
+                - Białe
+                - Czerwone
+                - Zielone
+            - Lilia 
+                - Białe
+                - Różowe
+                - Żółte
+    - **Kolor kwiatów**
+        - Pole tekstowe
+        - Przyciski z podpowiedziami:
+            - Bordo
+            - Ekri
+            - Herbaciany
+            - Różowy
+            - Fioletowy
+    - **Kwota**
+        - Pole tekstowe
+    - **Czy zapłacone?**
+        - Tak
+        - Nie
+        - Faktura
+        - W pogrzebówce
+        - Inne
+            - Jakie? (pole tekstowe)
+    - **Czy na fakturę?**
+        - Tak 
+            - Podaj numer faktury (pole tekstowe)
+        - Nie
+    - **Treść szarfy**
+        - Pole tekstowe
+        - Przyciski:
+            - Pomij
+            - Kolejna szarfa (przenosi do Treść szarfy)
+    - **Od kogo**
+        - Pole tekstowe
+    - **Komentarz**
+        - Pole tekstowe
+        - Przyciski:
+            - Pomij
+- Karta Pogrzebowa
+    - **Na kiedy?**
+        - Dzień tygodnia (4 dni do przodu)
+        - Inna
+            - Jaka? (pole tekstowe)
+    - **Nazwisko zamawiającego**
+        - Pole tekstowe
+        - Przyciski:
+            - Pomij
+    - **Numer telefonu**
+        - Pole tekstowe
+        - Przyciski:
+            - Pomij
+    - **Rodzaj zamówienia**
+        - Wieniec
+        - Wiązanka
+        - Serce
+        - Inne
+            - Co? (pole tekstowe)
+    - **Żywość kwiatów**
+        - Żywe
+        - Sztuczne
+    - **Rodzaj kwiatów**
+        - Pole tekstowe
+        - Przyciski z podpowiedziami:
+            - Róże
+                - Czerwona
+                - Ekri
+                - Herbaciana
+                - Różowa
+            - Goździki
+                - Jasny
+                - Ciemny
+            - Gerber
+                - Jasny
+                - Ciemny
+            - Anturium
+                - Białe
+                - Czerwone
+                - Zielone
+            - Lilia 
+                - Białe
+                - Różowe
+                - Żółte
+    - **Kolor kwiatów**
+        - Pole tekstowe
+        - Przyciski z podpowiedziami:
+            - Bordo
+            - Ekri
+            - Herbaciany
+            - Różowy
+            - Fioletowy
+    - **Kwota**
+        - Pole tekstowe
+    - **Czy zapłacone?**
+        - Tak
+        - Nie
+        - Faktura
+        - W pogrzebówce
+        - Inne
+            - Jakie? (pole tekstowe)
+    - **Czy na fakturę?**
+        - Tak 
+            - Podaj numer faktury (pole tekstowe)
+        - Nie
+    - **Treść szarfy**
+        - Pole tekstowe
+        - Przyciski:
+            - Pomij
+            - Kolejna szarfa (przenosi do Treść szarfy)
+    - **Kogo pogrzeb**
+        - Pole tekstowe
+        - _Ewentalne przyciski z podpowiedziami_
+    - **Gdzie pogrzeb**
+        - Pole tekstowe
+        - _Ewentalne przyciski z podpowiedziami_
+    - **Dodatkowe wyposażenie**
+        - Pole tekstowe
+        - Przyciski z podpowiedziami:
+            - Znicz
+            - Wkłady
+            - Stojaki
+    - **Komentarz**
+        - Pole tekstowe
+        - Przyciski:
+            - Pomij
+
+_Przyciski z podpowiedziami dodają wybrane opcje na początku zawartości pola tekstowego_
+
+
+
+```
+
+
+Gdzie zapisać zamówienie?
+- Niebieski Segregator
+    - **Na kiedy?**
+        - Dzień tygodnia (4 dni do przodu)
+        - Inna
+            - Jaka? (pole tekstowe)
+    - **Nazwisko zamawiającego**
+        - Pole tekstowe
+        - Przyciski:
+            - Pomij
+    - **Numer telefonu**
+        - Pole tekstowe
+        - Przyciski:
+            - Pomij
+    - **Rodzaj zamówienia**
+        - Wieniec
+        - Wiązanka
+        - Serce
+        - Inne
+            - Co? (pole tekstowe)
+    - **Żywość kwiatów**
+        - Żywe
+        - Sztuczne
+    - **Rodzaj kwiatów**
+        - Pole tekstowe
+        - Przyciski z podpowiedziami:
+            - Róże
+                - Czerwona
+                - Ekri
+                - Herbaciana
+                - Różowa
+            - Goździki
+                - Jasny
+                - Ciemny
+            - Gerber
+                - Jasny
+                - Ciemny
+            - Anturium
+                - Białe
+                - Czerwone
+                - Zielone
+            - Lilia 
+                - Białe
+                - Różowe
+                - Żółte
+    - **Kolor kwiatów**
+        - Pole tekstowe
+        - Przyciski z podpowiedziami:
+            - Bordo
+            - Ekri
+            - Herbaciany
+            - Różowy
+            - Fioletowy
+    - **Kwota**
+        - Pole tekstowe
+    - **Czy zapłacone?**
+        - Tak
+        - Nie
+        - Faktura
+        - W pogrzebówce
+        - Inne
+            - Jakie? (pole tekstowe)
+    - **Czy na fakturę?**
+        - Tak 
+            - Podaj numer faktury
+        - Nie
+    - **Treść szarfy**
+        - Pole tekstowe
+        - Przyciski:
+            - Pomij
+            - Kolejna szarfa (przenosi do Treść szarfy)
+    - **Komentarz**
+        - Pole tekstowe
+        - Przyciski:
+            - Pomij
+- Zielony Segregator
+    - **Na kiedy?**
+        - Dzień tygodnia (4 dni do przodu) + godzina
+        - Inna
+            - Jaka? (pole tekstowe)
+    - **Nazwisko zamawiającego**
+        - Pole tekstowe
+        - Przyciski:
+            - Pomij
+    - **Numer telefonu**
+        - Pole tekstowe
+        - Przyciski:
+            - Pomij
+    - **Rodzaj zamówienia**
+        - Bukiet
+        - Układana
+        - Pojedyncze kwiaty
+        - Inne
+            - Co? (pole tekstowe)
+    - **Żywość kwiatów**
+        - Żywe
+        - Sztuczne
+    - **Rodzaj kwiatów**
+        - Pole tekstowe
+        - Przyciski z podpowiedziami:
+                - Róże
+                - Czerwona
+                - Ekri
+                - Herbaciana
+                - Różowa
+            - Goździki
+                - Jasny
+                - Ciemny
+            - Gerber
+                - Jasny
+                - Ciemny
+            - Anturium
+                - Białe
+                - Czerwone
+                - Zielone
+            - Lilia 
+                - Białe
+                - Różowe
+                - Żółte
+    - **Kolor kwiatów**
+        - Pole tekstowe
+        - Przyciski z podpowiedziami:
+            - Bordo
+            - Ekri
+            - Herbaciany
+            - Różowy
+            - Fioletowy
+    - **Kwota**
+        - Pole tekstowe
+    - **Czy zapłacone?**
+        - Tak
+        - Nie
+        - Faktura
+        - W pogrzebówce
+        - Inne
+            - Jakie? (pole tekstowe)
+    - **Czy na fakturę?**
+        - Tak 
+            - Podaj numer faktury (pole tekstowe)
+        - Nie
+    - **Treść szarfy**
+        - Pole tekstowe
+        - Przyciski:
+            - Pomij
+            - Kolejna szarfa (przenosi do Treść szarfy)
+    - **Od kogo**
+        - Pole tekstowe
+    - **Komentarz**
+        - Pole tekstowe
+        - Przyciski:
+            - Pomij
+- Karta Pogrzebowa
+    - **Na kiedy?**
+        - Dzień tygodnia (4 dni do przodu)
+        - Inna
+            - Jaka? (pole tekstowe)
+    - **Nazwisko zamawiającego**
+        - Pole tekstowe
+        - Przyciski:
+            - Pomij
+    - **Numer telefonu**
+        - Pole tekstowe
+        - Przyciski:
+            - Pomij
+    - **Rodzaj zamówienia**
+        - Wieniec
+        - Wiązanka
+        - Serce
+        - Inne
+            - Co? (pole tekstowe)
+    - **Żywość kwiatów**
+        - Żywe
+        - Sztuczne
+    - **Rodzaj kwiatów**
+        - Pole tekstowe
+        - Przyciski z podpowiedziami:
+            - Róże
+                - Czerwona
+                - Ekri
+                - Herbaciana
+                - Różowa
+            - Goździki
+                - Jasny
+                - Ciemny
+            - Gerber
+                - Jasny
+                - Ciemny
+            - Anturium
+                - Białe
+                - Czerwone
+                - Zielone
+            - Lilia 
+                - Białe
+                - Różowe
+                - Żółte
+    - **Kolor kwiatów**
+        - Pole tekstowe
+        - Przyciski z podpowiedziami:
+            - Bordo
+            - Ekri
+            - Herbaciany
+            - Różowy
+            - Fioletowy
+    - **Kwota**
+        - Pole tekstowe
+    - **Czy zapłacone?**
+        - Tak
+        - Nie
+        - Faktura
+        - W pogrzebówce
+        - Inne
+            - Jakie? (pole tekstowe)
+    - **Czy na fakturę?**
+        - Tak 
+            - Podaj numer faktury (pole tekstowe)
+        - Nie
+    - **Treść szarfy**
+        - Pole tekstowe
+        - Przyciski:
+            - Pomij
+            - Kolejna szarfa (przenosi do Treść szarfy)
+    - **Kogo pogrzeb**
+        - Pole tekstowe
+        - _Ewentalne przyciski z podpowiedziami_
+    - **Gdzie pogrzeb**
+        - Pole tekstowe
+        - _Ewentalne przyciski z podpowiedziami_
+    - **Dodatkowe wyposażenie**
+        - Pole tekstowe
+        - Przyciski z podpowiedziami:
+            - Znicz
+            - Wkłady
+            - Stojaki
+    - **Komentarz**
+        - Pole tekstowe
+        - Przyciski:
+            - Pomij
+
+_Przyciski z podpowiedziami dodają wybrane opcje na początku zawartości pola tekstowego_
+```
