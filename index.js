@@ -64,6 +64,10 @@ client.on('interactionCreate', async (interaction) => {
     else if (interaction.isButton()) {
       await handleUserResponse(interaction, client);
     }
+    // Obsługa Select Menu
+    else if (interaction.isStringSelectMenu()) {
+      await handleUserResponse(interaction, client);
+    }
     // Obsługa komend slashowych
     else if (interaction.isCommand()) {
       await handleSlashCommand(interaction);

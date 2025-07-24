@@ -145,10 +145,22 @@
                                                                                         ],
                                                                                         "kolejnePytania": [
                                                                                             {
-                                                                                                "pytanie": "Komentarz",
+                                                                                                "pytanie": "Wyposażenie dodatkowe",
                                                                                                 "interactionType": "textField+button",
                                                                                                 "przyciski": [
+                                                                                                    "Znicz",
+                                                                                                    "Wkłady",
+                                                                                                    "Stojaki",
                                                                                                     "Pomiń"
+                                                                                                ],
+                                                                                                "kolejnePytania": [
+                                                                                                    {
+                                                                                                        "pytanie": "Komentarz",
+                                                                                                        "interactionType": "textField+button",
+                                                                                                        "przyciski": [
+                                                                                                            "Pomiń"
+                                                                                                        ]
+                                                                                                    }
                                                                                                 ]
                                                                                             }
                                                                                         ]

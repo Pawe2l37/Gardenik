@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { sendOrderSummary } = require('./summaryHandler');
-const { ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelType } = require('discord.js');
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelType, StringSelectMenuBuilder } = require('discord.js');
 const {
     handleButtonInteraction,
     handleTextFieldInteraction,
@@ -104,6 +104,35 @@ function getLocalizedDate(daysToAdd) {
     date.setDate(date.getDate() + daysToAdd);
     const options = { weekday: 'long', day: 'numeric', month: 'long' };
     return date.toLocaleDateString('pl-PL', options);
+}
+
+// Funkcja do generowania Select Menu z datami na 14 dni do przodu
+function createDateSelectMenu() {
+    const selectMenu = new StringSelectMenuBuilder()
+        .setCustomId('date_select')
+        .setPlaceholder('Wybierz datę...')
+        .setMinValues(1)
+        .setMaxValues(1);
+
+    // Dodajemy opcje dat na następne 14 dni
+    for (let i = 1; i <= 14; i++) {
+        const date = new Date();
+        date.setDate(date.getDate() + i);
+        const dateString = date.toLocaleDateString('pl-PL', { 
+            weekday: 'long', 
+            day: 'numeric', 
+            month: 'long' 
+        });
+        const dateValue = date.toISOString().split('T')[0]; // Format YYYY-MM-DD
+        
+        selectMenu.addOptions({
+            label: dateString,
+            value: dateValue,
+            description: `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`
+        });
+    }
+
+    return new ActionRowBuilder().addComponents(selectMenu);
 }
 
 // Nowa funkcja do zadawania pojedynczego pytania
@@ -403,6 +432,20 @@ async function handleUserResponse(interaction, client) {
         }
         
         console.log(`Button interaction received: ${customId} in thread ${threadId}`);
+    } else if (interaction.isStringSelectMenu && interaction.isStringSelectMenu()) {
+        // To jest interakcja Select Menu
+        threadId = interaction.channel.id;
+        customId = interaction.customId;
+        messageToDisable = interaction.message;
+        
+        // Potwierdź użytkownikowi że interakcja została przyjęta
+        try {
+            await interaction.deferUpdate();
+        } catch (error) {
+            console.error('Nie można potwierdzić interakcji Select Menu:', error);
+        }
+        
+        console.log(`Select Menu interaction received: ${customId} in thread ${threadId}`);
     } else if (interaction.author) {
         // To jest wiadomość tekstowa
         threadId = interaction.channel.id;
@@ -433,8 +476,29 @@ async function handleUserResponse(interaction, client) {
     // Obsługa pierwszego pytania
     if (order.currentQuestionKey === 'firstQuestion') {
         if (customId) {
+            // Obsługa wyboru daty z Select Menu
+            if (customId === 'date_select') {
+                const selectedDate = interaction.values[0]; // Format YYYY-MM-DD
+                const displayDate = new Date(selectedDate).toLocaleDateString('pl-PL', { 
+                    weekday: 'long', 
+                    day: 'numeric', 
+                    month: 'long' 
+                });
+                
+                // Zapisujemy odpowiedź
+                order.answers['naKiedy'] = displayDate;
+                order.answers['naKiedyNormalized'] = selectedDate; // Format YYYY-MM-DD dla przyszłych kanałów
+                saveOrderToFile(order);
+                
+                // Inicjalizujemy ścieżkę
+                order.currentQuestionPath = "";
+                
+                // Przechodzimy do kolejnych pytań
+                await askNextQuestion(threadId, client, order, questions.kolejnePytania);
+                return;
+            }
             // Obsługa przycisku dla pierwszego pytania
-            if (customId === 'Pomiń') {
+            else if (customId === 'Pomiń') {
                 odpowiedz = 'Pominięto';
                 
                 // Zapisujemy odpowiedź
@@ -470,7 +534,7 @@ async function handleUserResponse(interaction, client) {
                 
                 // Przechodzimy do kolejnych pytań
                 await askNextQuestion(threadId, client, order, questions.kolejnePytania);
-            } else if (customId === 'inna data') {
+            } else if (customId === 'inna data' || customId === 'Inna') {
                 // Wyszarzamy przyciski
                 if (messageToDisable) {
                     try {
@@ -495,9 +559,13 @@ async function handleUserResponse(interaction, client) {
                     }
                 }
                 
-                // Zadajemy pytanie o datę
+                // Wyświetlamy Select Menu z datami
                 const thread = await client.channels.fetch(threadId);
-                await thread.send("Podaj datę:");
+                const dateSelectRow = createDateSelectMenu();
+                await thread.send({
+                    content: "Wybierz datę z listy:",
+                    components: [dateSelectRow]
+                });
                 return; // Nie zmieniamy currentQuestionKey, czekamy na odpowiedź
             } else if (customId.startsWith('data_')) {
                 // Jeśli to jest przycisk daty w postaci "data_1", "data_2" itp.
