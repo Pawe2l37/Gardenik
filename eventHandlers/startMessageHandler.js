@@ -4,7 +4,7 @@ const { readOrderNumber, updateOrderNumber } = require('./orderNumberHandler');
 const startMessageContent = 'Wybierz typ zamówienia:';
 
 async function sendStartMessage(client) {
-    const channelId = process.env.HI_CHANNEL_ID;
+    const channelId = process.env.LADA_CHANNEL_ID;
 
     try {
         const channel = await client.channels.fetch(channelId);
@@ -113,7 +113,7 @@ async function sendNewStartMessage(client) {
 }
 
 async function deleteStartMessage(client) {
-    const channelId = process.env.HI_CHANNEL_ID;
+    const channelId = process.env.LADA_CHANNEL_ID;
     const channel = client.channels.cache.get(channelId);
 
     if (!channel) return;

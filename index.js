@@ -4,6 +4,8 @@ const { commands } = require('./utils/commands');
 const { handleSlashCommand } = require('./eventHandlers/slashCommandsHandler');
 const { sendNewStartMessage, handleStartMessageButtonInteraction } = require('./eventHandlers/startMessageHandler');
 const { handleUserResponse } = require('./eventHandlers/orderThreadHandler');
+const { handleSummaryAction } = require('./eventHandlers/summaryActionsHandler');
+const { sendBotStatusUpdate } = require('./eventHandlers/statusUpdateHandler');
 
 const client = new Client({
   intents: [
@@ -33,9 +35,12 @@ client.once('ready', async () => {
     console.error('Failed to reload application (/) commands:', error);
   }
 
-  const channelId = process.env.HI_CHANNEL_ID;
+  const channelId = process.env.LADA_CHANNEL_ID;
   const channel = await client.channels.fetch(channelId);
 
+  // Wysyłanie statusu bota na kanał update
+  await sendBotStatusUpdate(client);
+  
   await sendNewStartMessage(client);
 });
 
@@ -44,6 +49,16 @@ client.on('interactionCreate', async (interaction) => {
     // Obsługa przycisków w wiadomości startowej
     if (interaction.isButton() && interaction.message && interaction.message.content.includes('Wybierz typ zamówienia')) {
       await handleStartMessageButtonInteraction(interaction, client);
+    }
+    // Obsługa przycisków akcji podsumowania zamówienia
+    else if (interaction.isButton() && 
+             (interaction.customId.startsWith('redirect_categories_') ||
+              interaction.customId.startsWith('cancel_order_') ||
+              interaction.customId.startsWith('order_ready_') ||
+              interaction.customId.startsWith('order_collected_') ||
+              interaction.customId.startsWith('edit_order_') ||
+              interaction.customId.startsWith('change_category_'))) {
+      await handleSummaryAction(interaction, client);
     }
     // Obsługa przycisków w wątkach zamówień
     else if (interaction.isButton()) {

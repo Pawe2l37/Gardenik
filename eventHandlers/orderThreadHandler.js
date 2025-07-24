@@ -232,12 +232,27 @@ async function askNextQuestion(threadId, client, order, questions) {
     }
 
     const thread = await client.channels.fetch(threadId);
-    await askQuestion(thread, nextQuestion.question, () => {
-        // Zapisujemy klucz pytania - używamy klucza, a jeśli go nie ma to treści pytania
+    
+    // Sprawdzamy, czy to pytanie o szarfę
+    if (nextQuestion.question.interactionType === 'repetableTextField+button' && 
+        (nextQuestion.question.pytanie === 'Dodaj treść szarfy' || nextQuestion.question.pytanie === 'Treść szarfy')) {
+        
+        // Używamy specjalnej funkcji dla pytania o szarfę
+        await addSkipButtonToMessage(thread, nextQuestion.question.pytanie);
+        
+        // Zapisujemy klucz pytania
         order.currentQuestionKey = nextQuestion.question.pytanie;
         order.currentQuestionPath = nextQuestion.path; // Zapisujemy ścieżkę do pytania
         console.log(`Ustawiam currentQuestionKey na: ${order.currentQuestionKey}, ścieżka: ${nextQuestion.path}`);
-    });
+    } else {
+        // Standardowa obsługa innych pytań
+        await askQuestion(thread, nextQuestion.question, () => {
+            // Zapisujemy klucz pytania - używamy klucza, a jeśli go nie ma to treści pytania
+            order.currentQuestionKey = nextQuestion.question.pytanie;
+            order.currentQuestionPath = nextQuestion.path; // Zapisujemy ścieżkę do pytania
+            console.log(`Ustawiam currentQuestionKey na: ${order.currentQuestionKey}, ścieżka: ${nextQuestion.path}`);
+        });
+    }
 }
 
 // Nowa rekurencyjna funkcja znajdująca następne pytanie
@@ -419,8 +434,71 @@ async function handleUserResponse(interaction, client) {
     if (order.currentQuestionKey === 'firstQuestion') {
         if (customId) {
             // Obsługa przycisku dla pierwszego pytania
-            if (customId === 'Pomiń' || customId === 'inna data') {
-                odpowiedz = 'Nieznana data';
+            if (customId === 'Pomiń') {
+                odpowiedz = 'Pominięto';
+                
+                // Zapisujemy odpowiedź
+                order.answers['naKiedy'] = odpowiedz;
+                saveOrderToFile(order);
+                
+                // Inicjalizujemy ścieżkę
+                order.currentQuestionPath = "";
+                
+                // Wyszarzamy przyciski i przechodzimy dalej
+                if (messageToDisable) {
+                    try {
+                        const disabledComponents = messageToDisable.components.map(row => {
+                            const newRow = new ActionRowBuilder();
+                            row.components.forEach(component => {
+                                if (component.type === 2) { // ButtonComponent
+                                    newRow.addComponents(
+                                        ButtonBuilder.from(component)
+                                            .setDisabled(true)
+                                    );
+                                } else {
+                                    newRow.addComponents(component);
+                                }
+                            });
+                            return newRow;
+                        });
+                        
+                        await messageToDisable.edit({ components: disabledComponents });
+                    } catch (error) {
+                        console.error('Nie można wyłączyć przycisków:', error);
+                    }
+                }
+                
+                // Przechodzimy do kolejnych pytań
+                await askNextQuestion(threadId, client, order, questions.kolejnePytania);
+            } else if (customId === 'inna data') {
+                // Wyszarzamy przyciski
+                if (messageToDisable) {
+                    try {
+                        const disabledComponents = messageToDisable.components.map(row => {
+                            const newRow = new ActionRowBuilder();
+                            row.components.forEach(component => {
+                                if (component.type === 2) { // ButtonComponent
+                                    newRow.addComponents(
+                                        ButtonBuilder.from(component)
+                                            .setDisabled(true)
+                                    );
+                                } else {
+                                    newRow.addComponents(component);
+                                }
+                            });
+                            return newRow;
+                        });
+                        
+                        await messageToDisable.edit({ components: disabledComponents });
+                    } catch (error) {
+                        console.error('Nie można wyłączyć przycisków:', error);
+                    }
+                }
+                
+                // Zadajemy pytanie o datę
+                const thread = await client.channels.fetch(threadId);
+                await thread.send("Podaj datę:");
+                return; // Nie zmieniamy currentQuestionKey, czekamy na odpowiedź
             } else if (customId.startsWith('data_')) {
                 // Jeśli to jest przycisk daty w postaci "data_1", "data_2" itp.
                 const dayOffset = parseInt(customId.substring(5));
@@ -448,7 +526,7 @@ async function handleUserResponse(interaction, client) {
                                 newRow.addComponents(
                                     ButtonBuilder.from(component)
                                         .setDisabled(true)
-                                );
+                                    );
                             } else {
                                 newRow.addComponents(component);
                             }
@@ -494,7 +572,25 @@ async function handleUserResponse(interaction, client) {
     // Sprawdzamy, czy mamy ostatnie pytanie - komentarz
     // Jeśli tak, to nie reagujemy na nowe wiadomości
     if (currentQuestion.pytanie === 'Komentarz' && !customId) {
-        console.log('Ostatnie pytanie (Komentarz) - ignorujemy nowe wiadomości tekstowe');
+        // Zapisujemy komentarz i wyświetlamy podsumowanie
+        // Sprawdzamy, czy to pierwsza wiadomość czy kolejna (aktualizacja)
+        if (!order.answers[currentQuestion.pytanie] || order.firstCommentProcessed) {
+            console.log('Zapisujemy komentarz i wyświetlamy podsumowanie');
+            order.answers[currentQuestion.pytanie] = userInput;
+            saveOrderToFile(order);
+            
+            // Ustawiamy flagę, że już przetwarzaliśmy pierwszy komentarz
+            order.firstCommentProcessed = true;
+            
+            // Generujemy podsumowanie
+            await sendOrderSummary(threadId, client);
+        } else {
+            // Zapisujemy tylko komentarz bez generowania podsumowania
+            console.log('Zapisujemy aktualizację komentarza bez generowania podsumowania');
+            order.answers[currentQuestion.pytanie] = userInput;
+            saveOrderToFile(order);
+        }
+        
         return;
     }
 
@@ -551,13 +647,7 @@ async function handleUserResponse(interaction, client) {
             
             // Ponownie zadajemy to samo pytanie, ale zmieniamy treść na "Dodaj treść szarfy"
             const thread = await client.channels.fetch(threadId);
-            await askQuestion(thread, {
-                pytanie: "Dodaj treść szarfy",
-                interactionType: "textField+button",
-                przyciski: "Pomiń",
-            }, () => {
-                // Nie zmieniamy currentQuestionKey ani ścieżki
-            });
+            await addSkipButtonToMessage(thread, "Dodaj treść szarfy");
             
             return;
         }
@@ -709,6 +799,22 @@ function findCurrentQuestion(order, questions, basePath = "") {
     }
     
     return null;
+}
+
+// Funkcja dodająca przycisk "Pomiń" do pytania o treść szarfy
+async function addSkipButtonToMessage(thread, messageContent) {
+    return await thread.send({
+        content: messageContent,
+        components: [
+            new ActionRowBuilder()
+                .addComponents(
+                    new ButtonBuilder()
+                        .setCustomId('Pomiń')
+                        .setLabel('Pomiń')
+                        .setStyle(ButtonStyle.Secondary)
+                )
+        ]
+    });
 }
 
 module.exports = { handleOrderThreadInteraction, askQuestion, askNextQuestion, saveOrderToFile, handleUserResponse, orders };
